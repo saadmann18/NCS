@@ -22,7 +22,7 @@ def train(x_train, learning_rate, batch_size, epochs):
         conv_filters=(32, 64, 64, 64),
         conv_kernels=(3, 3, 3, 3),
         conv_strides=(1, 2, 2, 1),  # stride 2 makes downsampling of dta
-        latent_space_dim=2
+        latent_space_dim=2 #increase to see efficient reconstruction
     )
     autoencoder.summary()
     autoencoder.compile(learning_rate)
@@ -31,4 +31,8 @@ def train(x_train, learning_rate, batch_size, epochs):
 
 if __name__ == "__main__":
     x_train, _, _, _ = load_mnist()
-    autoencoder = train(x_train[:500], LEARNING_RATE, BATCH_SIZE, EPOCHS)
+    autoencoder = train(x_train[:10000], LEARNING_RATE, BATCH_SIZE, EPOCHS)
+    autoencoder.save("model")
+    autoencoder2 = Autoencoder.load("model")
+    autoencoder2.summary()
+
